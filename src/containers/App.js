@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import Persons from "../components/Persons/Persons";
-import styled from "styled-components";
+import Cockpit from "../components/Cockpit/Cockpit";
+
 class App extends Component {
   state = {
     persons: [
@@ -46,22 +47,8 @@ class App extends Component {
   };
 
   render() {
-    const StyledButton = styled.button`
-      background-color: ${props => (props.changeCss ? "red" : "blue")};
-      font-size: inherit;
-      padding: 8px 16px 8px 16px;
-      curser: pointer;
-      border-radius: 4px;
-      color: white;
-      border: none;
-
-      &:hover {
-        background-color: ${props =>
-          props.changeCss ? "LightCoral" : "MidnightBlue"};
-      }
-    `;
-
     let persons = null;
+
     if (this.state.showPersons) {
       persons = (
         <Persons
@@ -74,14 +61,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>React App</h1>
-        <StyledButton
-          changeCss={this.state.showPersons}
-          onClick={this.togglePersonsHandler}
-        >
-          Display
-        </StyledButton>
-
+        <Cockpit
+          title={this.props.appTitle}
+          css={this.state.showPersons}
+          click={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
