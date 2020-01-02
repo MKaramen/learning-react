@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Person from "./Person/Person";
+import Person from "../components/Persons/Person/Person";
 import styled from "styled-components";
-
 class App extends Component {
   state = {
     persons: [
@@ -79,23 +78,11 @@ class App extends Component {
           })}
         </div>
       );
-
-      // style.backgroundColor = "red";
-      // style[":hover"].backgroundColor = "purple";
-    }
-
-    const classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push("thin");
-    }
-
-    if (this.state.persons.length === 1) {
-      classes.push("purple");
     }
 
     return (
       <div className="App">
-        <h1 className={classes.join(" ")}>React App</h1>
+        <h1>React App</h1>
         <StyledButton
           changeCss={this.state.showPersons}
           onClick={this.togglePersonsHandler}
