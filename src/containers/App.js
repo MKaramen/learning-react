@@ -6,11 +6,12 @@ import Cockpit from "../components/Cockpit/Cockpit";
 class App extends Component {
   state = {
     persons: [
-      { id: "000", name: "Max", age: 420 },
+      { id: "000", name: "KEKWAIT", age: 420 },
       { id: "0001", name: "KekW", age: 40 },
       { id: "0002", name: "YesW", age: 59 }
     ],
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   };
   // Delete a person from the array
   deletePersonHandler = personIndex => {
@@ -61,11 +62,17 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Cockpit
-          title={this.props.appTitle}
-          css={this.state.showPersons}
-          click={this.togglePersonsHandler}
-        />
+        <button onClick={() => this.setState({ showCockpit: false })}>
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? (
+          <Cockpit
+            // appTitle comes from index.js
+            title={this.props.appTitle}
+            css={this.state.showPersons}
+            click={this.togglePersonsHandler}
+          />
+        ) : null}
         {persons}
       </div>
     );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const Cockpit = props => {
@@ -17,6 +17,15 @@ const Cockpit = props => {
     }
   `;
 
+  // Use effect second argument allow us to choose which element the function should pay attention to (array)
+  // If array is empty execute only for the first time
+  useEffect(() => {
+    console.log("[Cockpit.js] CSS Changed");
+    return () => {
+      console.log("Clean up Work");
+    };
+  });
+
   return (
     <div>
       <h1>{props.title}</h1>
@@ -27,4 +36,5 @@ const Cockpit = props => {
   );
 };
 
-export default Cockpit;
+// Implement check only if sometime the parent change but not the child
+export default React.memo(Cockpit);
