@@ -17,12 +17,26 @@ const Cockpit = props => {
     }
   `;
 
-  // Use effect second argument allow us to choose which element the function should pay attention to (array)
   // If array is empty execute only for the first time
   useEffect(() => {
-    console.log("[Cockpit.js] CSS Changed");
+    console.log("[Cockpit.js] useEffect");
+    // Will execute when we unmount the cockpit component
+
+    // If we don't give a 2nd argument, it will always unmount the component between each render so Clean up Work get executed every times
     return () => {
       console.log("Clean up Work");
+    };
+  }, []);
+
+  // Use effect second argument allow us to choose which element the function should pay attention to (array)
+  useEffect(() => {
+    console.log("[Cockpit.js] 2nd useEffect");
+
+    // Will execute when we unmount the cockpit component
+
+    // If we don't give a 2nd argument, it will always unmount the component between each render so Clean up Work get executed every times
+    return () => {
+      console.log("Clean up Work 2nd");
     };
   });
 
@@ -36,5 +50,5 @@ const Cockpit = props => {
   );
 };
 
-// Implement check only if sometime the parent change but not the child
+// If App.js rerender and Cockpit  props didn't change then the cockpit doesn't rerender that's why we use React.memo
 export default React.memo(Cockpit);
