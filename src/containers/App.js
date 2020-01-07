@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
 import "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
+import withClass from "../hoc/withClass";
 
 class App extends Component {
   state = {
@@ -61,7 +63,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <React.Fragment>
         <button onClick={() => this.setState({ showCockpit: false })}>
           Remove Cockpit
         </button>
@@ -74,9 +76,9 @@ class App extends Component {
           />
         ) : null}
         {persons}
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default withClass(App, "App");

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const Cockpit = props => {
@@ -17,13 +17,16 @@ const Cockpit = props => {
     }
   `;
 
+  const btnRef = useRef(null);
   // If array is empty execute only for the first time
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
     // Will execute when we unmount the cockpit component
+    const x = setTimeout(() => btnRef.current.click(), 1000);
 
     // If we don't give a 2nd argument, it will always unmount the component between each render so Clean up Work get executed every times
     return () => {
+      clearTimeout(x);
       console.log("Clean up Work");
     };
   }, []);
@@ -43,7 +46,7 @@ const Cockpit = props => {
   return (
     <div>
       <h1>{props.title}</h1>
-      <StyledButton changeCss={props.css} onClick={props.click}>
+      <StyledButton ref={btnRef} changeCss={props.css} onClick={props.click}>
         Display
       </StyledButton>
     </div>
