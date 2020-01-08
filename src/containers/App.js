@@ -4,6 +4,7 @@ import "./App.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
 import withClass from "../hoc/withClass";
+import AuthContext from "../context/auth-context";
 
 class App extends Component {
   state = {
@@ -13,7 +14,8 @@ class App extends Component {
       { id: "0002", name: "YesW", age: 59 }
     ],
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    logIn: false
   };
   // Delete a person from the array
   deletePersonHandler = personIndex => {
@@ -49,6 +51,11 @@ class App extends Component {
     });
   };
 
+  loginHandler = () => {
+    const isConnected = this.state.logIn;
+    this.setState({ logIn: !isConnected });
+  };
+
   render() {
     let persons = null;
 
@@ -58,6 +65,7 @@ class App extends Component {
           clicked={this.deletePersonHandler}
           changed={this.changeNameHandler}
           persons={this.state.persons}
+          login={this.state.logIn}
         />
       );
     }
@@ -67,15 +75,22 @@ class App extends Component {
         <button onClick={() => this.setState({ showCockpit: false })}>
           Remove Cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            // appTitle comes from index.js
-            title={this.props.appTitle}
-            css={this.state.showPersons}
-            click={this.togglePersonsHandler}
-          />
-        ) : null}
-        {persons}
+        <AuthContext.Provider
+          value={{
+            loggedIn: this.state.logIn,
+            loginHandler: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              // appTitle comes from index.js
+              title={this.props.appTitle}
+              css={this.state.showPersons}
+              click={this.togglePersonsHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </React.Fragment>
     );
   }

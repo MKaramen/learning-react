@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import AuthContext from "../../context/auth-context";
 
 const Cockpit = props => {
   const StyledButton = styled.button`
@@ -17,7 +18,12 @@ const Cockpit = props => {
     }
   `;
 
+  // Create Ref for the button so we can autoclick on it
   const btnRef = useRef(null);
+
+  // Use context from App.js
+  const loginContext = useContext(AuthContext);
+
   // If array is empty execute only for the first time
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
@@ -48,6 +54,10 @@ const Cockpit = props => {
       <h1>{props.title}</h1>
       <StyledButton ref={btnRef} changeCss={props.css} onClick={props.click}>
         Display
+      </StyledButton>
+
+      <StyledButton onClick={loginContext.loginHandler}>
+        {loginContext.loggedIn ? "Disconnect" : "Connect"}
       </StyledButton>
     </div>
   );

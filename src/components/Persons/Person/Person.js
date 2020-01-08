@@ -2,27 +2,23 @@ import React, { Component } from "react";
 import "./Person.css";
 import withClass from "../../../hoc/withClass";
 import PropTypes from "prop-types";
+import AuthContext from "../../../context/auth-context";
 // import Aux from "../../../hoc/Aux";
 
 // Removed style so we can use Aux and not create a new Div
 
 class Person extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.inputElementReference = React.createRef();
-  // }
+  // Allow us to use context in classes, have to use provider in app.js in order to definie the values
+  static contextType = AuthContext;
 
   inputElementReference = React.createRef();
-
-  componentDidMount() {
-    console.log(this.inputElementReference);
-    this.inputElementReference.current.focus();
-  }
 
   render() {
     return (
       // React.Fragment works like <Aux></Aux>
       <React.Fragment>
+        <p>{this.context.loggedIn ? "Connected" : "You need to login"}</p>
+
         <p onClick={this.props.click}>
           My name is {this.props.name} and I'm {this.props.age} years old
         </p>

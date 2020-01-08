@@ -25,6 +25,7 @@ class Persons extends PureComponent {
           changed={event => this.props.changed(event, person.id)}
           click={() => this.props.clicked(index)}
           key={person.id}
+          login={this.props.login}
         />
       );
     });
